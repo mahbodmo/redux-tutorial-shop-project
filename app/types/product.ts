@@ -1,38 +1,28 @@
 export type ProductType = {
   id: number;
-  availabilityStatus: string;
-  brand: string;
-  category: string;
+  title: string;
   description: string;
-  dimensions: {
-    depth: number;
-    height: number;
-    width: number;
-  };
-  discountPercentage: number;
-  images: string[];
-  meta: {
-    barcode: string;
-    createdAt: string;
-    updatedAt: string;
-    qrCode: string;
-  };
-  minimumOrderQuantity: number;
+  category: string;
   price: number;
+  discountPercentage: number;
   rating: number;
-  returnPolicy: string;
-  reviews: {
-    comment: string;
-    date: string;
-    rating: number;
-    reviewerEmail: string;
-    reviewerName: string;
-  }[];
-  shippingInformation: string;
   stock: number;
   tags: string[];
-  thumbnail: string;
-  title: string;
-  warrantyInformation: string;
+  brand: string;
+  sku: string;
   weight: number;
+  dimensions: {
+    length: number;
+    width: number;
+    height: number;
+  };
+  warrantyInformation: string;
+  shippingInformation: string;
+  availabilityStatus: string;
+  reviews: any[];
+  returnPolicy: string;
+  minimumOrderQuantity: number;
+  meta: any[];
+  images: string[];
+  thumbnail: string;
 };
