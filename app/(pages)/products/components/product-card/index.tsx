@@ -23,7 +23,7 @@ export default function ProductCard({ product }: Props) {
         <p>{product.price} $</p>
         <p className='text-[14px] text-gray-600'>{product.description}</p>
       </Link>
-      <AddToCartButton />
+      <AddToCartButton product={product} />
     </div>
   );
 }

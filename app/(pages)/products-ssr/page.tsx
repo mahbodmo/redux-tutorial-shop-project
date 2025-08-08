@@ -2,8 +2,6 @@ import { ProductType } from "@/app/types/product";
 import ProductCard from "../products/components/product-card";
 import { notFound } from "next/navigation";
 
-//Functional component ( Hooks and ...)
-//Class component
 export default async function ProductsSSRPage() {
   try {
     const response = await fetch("https://dummyjson.com/products").then((res) =>
