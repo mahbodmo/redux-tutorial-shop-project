@@ -29,7 +29,13 @@ export default function ProductCard({ product }: Props) {
           </div>
           <CategoryBadge category={product.category} />
         </div>
-        <Price price={product.price} />
+        <div className="flex items-center justify-between">
+          <Price price={product.price} />
+          <p>
+            <strong>in Stock: </strong>
+            {product.stock}
+          </p>
+        </div>
         <p className="text-[14px] text-gray-600">{product.description}</p>
       </Link>
       <AddToCartButton product={product} />

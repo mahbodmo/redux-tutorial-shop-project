@@ -1,9 +1,6 @@
 "use client";
 
-export default function ProductsErrorPage({
-  error,
-  reset,
-}: {
+export default function ProductsErrorPage({}: {
   error: Error;
   reset: () => void;
 }) {
