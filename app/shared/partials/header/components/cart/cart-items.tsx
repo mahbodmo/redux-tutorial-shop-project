@@ -1,6 +1,7 @@
 import { useCart } from "@/app/hooks/use-cart";
+import Button from "@/app/shared/button";
 import Price from "@/app/shared/price";
-import { clearCart, useAppDispatch } from "@/app/store/main";
+import { clearCart, removeProduct, useAppDispatch } from "@/app/store/main";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -11,7 +12,10 @@ export default function CartItems() {
 
   const router = useRouter();
 
-  const { products } = useCart();
+  const {
+    cart: { items },
+    totalPrice,
+  } = useCart();
 
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -23,40 +27,60 @@ export default function CartItems() {
   };
 
   return (
-    <div className="absolute top-[160%] right-0 bg-black p-4 w-[250px] rounded-xl z-50 flex flex-col divide-y divide-amber-100">
-      {products.length === 0 ? (
+    <div className='absolute top-[160%] right-0 bg-black p-4 w-[250px] rounded-xl z-50 flex flex-col'>
+      {items.length === 0 ? (
         "Your cart is empty!"
       ) : (
-        <>
-          {products.map((product, key) => (
-            <div key={key} className="py-4 first:pt-0">
-              <div className="flex items-center gap-x-2">
+        <div className='flex flex-col gap-y-2'>
+          {items.map((item, key) => (
+            <div
+              key={key}
+              className='flex flex-col gap-y-2 border border-white p-4 rounded-lg'
+            >
+              <div className='flex items-center gap-x-2'>
                 <Image
-                  src={product.thumbnail}
-                  alt={product.title}
+                  src={item.product.thumbnail}
+                  alt={item.product.title}
                   width={60}
                   height={60}
                 />
-                <h4 className="text-[16px]">{product.title}</h4>
+                <h4 className='text-[16px]'>{item.product.title}</h4>
               </div>
-              <Price price={product.price} className="float-right" />
+              <div className='flex items-center gap-x-2 justify-between'>
+                <div>
+                  <strong>Quantity:</strong> {item.quantity}
+                </div>
+                <div>
+                  <Button onClick={() => dispatch(removeProduct(item.product))}>
+                    Remove
+                  </Button>
+                </div>
+              </div>
+              <Price
+                price={item.product.price * item.quantity}
+                className='float-right'
+              />
             </div>
           ))}
-          <div className="flex flex-row gap-4 mt-4">
+          <div className='flex flex-row gap-4'>
+            <strong>Total Price:</strong>{" "}
+            <Price price={totalPrice.toFixed(2)} />
+          </div>
+          <div className='flex flex-row gap-4 mt-4'>
             <button
               onClick={handleClearCart}
-              className="border w-full cursor-pointer hover:bg-white hover:text-black transition-all duration-300"
+              className='border w-full cursor-pointer hover:bg-white hover:text-black transition-all duration-300'
             >
               Clear cart
             </button>
             <button
               onClick={handleCheckout}
-              className="border w-full cursor-pointer hover:bg-white hover:text-black transition-all duration-300"
+              className='border w-full cursor-pointer hover:bg-white hover:text-black transition-all duration-300'
             >
               Checkout
             </button>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

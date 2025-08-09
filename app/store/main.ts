@@ -6,14 +6,17 @@ import { ProductType } from "../types/product";
 // favorite products slice
 // auth slice
 
+type CartItem = {
+  product: ProductType;
+  quantity: number;
+};
+
 type CartState = {
-  products: ProductType[];
-  totalPrice: number;
+  items: CartItem[];
 };
 
 const initialState: CartState = {
-  products: [],
-  totalPrice: 0,
+  items: [],
 };
 
 const cartSlice = createSlice({
@@ -21,17 +24,24 @@ const cartSlice = createSlice({
   initialState: initialState,
   reducers: {
     addProduct: (state, action: PayloadAction<ProductType>) => {
-      state.products.push(action.payload);
-      state.totalPrice += action.payload.price;
+      if (state.items.find((item) => item.product.id === action.payload.id)) {
+        state.items.find(
+          (item) => item.product.id === action.payload.id
+        )!.quantity += 1;
+      } else {
+        state.items.push({
+          product: action.payload,
+          quantity: 1,
+        });
+      }
     },
     removeProduct: (state, action: PayloadAction<ProductType>) => {
-      state.products = state.products.filter(
-        (product) => product.id !== action.payload.id
+      state.items = state.items.filter(
+        (item) => item.product.id !== action.payload.id
       );
     },
     clearCart: (state) => {
-      state.products = initialState.products;
-      state.totalPrice = initialState.totalPrice;
+      state.items = initialState.items;
     },
   },
 });
