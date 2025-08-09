@@ -19,10 +19,15 @@ export type ProductType = {
   warrantyInformation: string;
   shippingInformation: string;
   availabilityStatus: string;
-  reviews: any[];
+  reviews: {
+    rating: number;
+    comment: string;
+    date: string;
+    reviewerName: string;
+    reviewerEmail: string;
+  }[];
   returnPolicy: string;
   minimumOrderQuantity: number;
-  meta: any[];
   images: string[];
   thumbnail: string;
 };

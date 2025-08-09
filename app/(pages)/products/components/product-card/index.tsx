@@ -1,7 +1,10 @@
 import { ProductType } from "@/app/types/product";
 import Link from "next/link";
 import React from "react";
-import AddToCartButton from "./add-to-cart";
+import AddToCartButton from "../../../../shared/add-to-cart-button";
+import CategoryBadge from "@/app/shared/category-badge";
+import Price from "@/app/shared/price";
+import Image from "next/image";
 
 type Props = {
   product: ProductType;
@@ -9,19 +12,25 @@ type Props = {
 
 export default function ProductCard({ product }: Props) {
   return (
-    <div className='relative'>
+    <div className="relative">
       <Link
         href={`/products/${product.id}`}
-        className='bg-gray-200 shadow-xl rounded-md p-4 flex flex-col gap-y-4 min-h-[300px]'
+        className="bg-gray-200 shadow-l rounded-2xl p-4 flex flex-col gap-y-4 min-h-[300px]"
       >
-        <div className='flex justify-between gap-x-4'>
-          <h4 className='text-[18px]'>{product.title}</h4>
-          <div className='bg-red-200 w-fit h-fit p-2 rounded-full text-red-900'>
-            {product.category}
+        <div className="flex justify-between items-start">
+          <div className="flex items-center gap-x-2">
+            <Image
+              src={product.thumbnail}
+              alt={product.title}
+              width={50}
+              height={50}
+            />
+            <h4 className="text-[16px] font-bold">{product.title}</h4>
           </div>
+          <CategoryBadge category={product.category} />
         </div>
-        <p>{product.price} $</p>
-        <p className='text-[14px] text-gray-600'>{product.description}</p>
+        <Price price={product.price} />
+        <p className="text-[14px] text-gray-600">{product.description}</p>
       </Link>
       <AddToCartButton product={product} />
     </div>

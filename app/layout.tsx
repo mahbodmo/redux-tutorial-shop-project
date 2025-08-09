@@ -4,6 +4,7 @@ import "./globals.css";
 import MainHeader from "./shared/partials/header";
 import Footer from "./shared/partials/footer";
 import StoreProvider from "./store/provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,13 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <StoreProvider>
+          <Toaster />
           <MainHeader />
-          <div className='min-h-[100vh] py-10 container mx-auto'>
+          <div className="min-h-[100vh] py-10 container mx-auto pt-25">
             {children}
           </div>
           <Footer />
