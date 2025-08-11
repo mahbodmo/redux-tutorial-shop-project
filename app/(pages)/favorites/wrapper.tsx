@@ -19,8 +19,8 @@ export default function Wrapper() {
     <>
       {favorites.length > 0 ? (
         <div className="grid grid-cols-4 gap-4">
-          {favorites?.map((product) => (
-            <ProductCard product={product.product} key={product.product.id} />
+          {favorites?.map((item) => (
+            <ProductCard product={item.product} key={item.product.id} />
           ))}
         </div>
       ) : (
