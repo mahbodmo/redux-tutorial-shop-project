@@ -15,13 +15,13 @@ export default function Cart() {
   } = useCart();
 
   return (
-    <div className='relative'>
+    <div className="relative">
       <Button onClick={() => setDropDown(!dropDown)}>
-        <ShoppingCartIcon color='white' size={24} />
+        <ShoppingCartIcon color="white" size={24} />
         <ProductCountBadge productCount={items.length} />
       </Button>
 
-      {dropDown && <CartItems />}
+      {dropDown && <CartItems onCheckout={() => setDropDown(false)} />}
     </div>
   );
 }

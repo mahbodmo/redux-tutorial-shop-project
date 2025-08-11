@@ -1,8 +1,9 @@
 import { ProductType } from "@/app/types/product";
-import ProductCard from "../products/components/product-card";
 import { notFound } from "next/navigation";
 import FilterButton from "./components/filters/filter-button";
 import SortButton from "./components/sort/sort-button";
+import LoadMoreBtn from "./components/load-more";
+import ProductCard from "@/app/shared/product-card";
 
 export default async function ProductsPage() {
   try {
@@ -11,6 +12,8 @@ export default async function ProductsPage() {
     );
 
     const products: ProductType[] = response?.products ?? [];
+
+    let perPage = 8;
 
     return (
       <>
@@ -23,10 +26,11 @@ export default async function ProductsPage() {
           </div>
         </div>
         <div className="grid grid-cols-4 gap-4">
-          {products?.map((product: ProductType) => (
+          {products?.slice(0, perPage)?.map((product: ProductType) => (
             <ProductCard product={product} key={product.id} />
           ))}
         </div>
+        <LoadMoreBtn />
       </>
     );
   } catch (e) {

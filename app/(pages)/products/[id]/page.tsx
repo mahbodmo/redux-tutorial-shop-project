@@ -1,7 +1,7 @@
-import { ProductType } from "@/app/types/product";
 import { notFound } from "next/navigation";
 import React from "react";
 import Wrapper from "./wrapper";
+import Breadcrumb from "@/app/shared/breadcrumb";
 
 type Props = {
   params: Promise<{
@@ -13,13 +13,26 @@ export default async function ProductSinglePage({ params }: Props) {
   const { id } = await params;
 
   try {
-    const response = await fetch(`https://dummyjson.com/products/${id}`).then(
+    const product = await fetch(`https://dummyjson.com/products/${id}`).then(
       (res) => res.json()
     );
 
-    const product: ProductType = response;
+    const breadcrumbItems = [
+      {
+        title: "Products",
+        link: "/products",
+      },
+      {
+        title: product.title,
+      },
+    ];
 
-    return <Wrapper product={product} />;
+    return (
+      <>
+        <Breadcrumb items={breadcrumbItems} />
+        <Wrapper product={product} />
+      </>
+    );
   } catch (e) {
     console.log(e);
     return notFound();

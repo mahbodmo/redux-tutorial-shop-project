@@ -1,7 +1,8 @@
 "use client";
 
 import Button from "@/app/shared/button";
-import { addProduct, useAppDispatch } from "@/app/store/main";
+import { addProduct } from "@/app/store/cart-slice";
+import { useAppDispatch } from "@/app/store/main";
 import { ProductType } from "@/app/types/product";
 import { PlusCircleIcon } from "lucide-react";
 import React from "react";

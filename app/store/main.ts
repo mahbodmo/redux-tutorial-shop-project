@@ -1,52 +1,30 @@
-import { createSlice, configureStore, PayloadAction } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { ProductType } from "../types/product";
+import { cartReducer } from "./cart-slice";
+import { persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import persistReducer from "redux-persist/lib/persistReducer";
+import { favoriteReducer } from "./favorite-slice";
 
-// cart slice
-// favorite products slice
-// auth slice
-
-type CartItem = {
-  product: ProductType;
-  quantity: number;
+const persistConfig = {
+  key: "root",
+  storage,
 };
 
-type CartState = {
-  items: CartItem[];
-};
-
-const initialState: CartState = {
-  items: [],
-};
-
-const cartSlice = createSlice({
-  name: "cart",
-  initialState: initialState,
-  reducers: {
-    addProduct: (state, action: PayloadAction<ProductType>) => {
-      if (state.items.find((item) => item.product.id === action.payload.id)) {
-        state.items.find(
-          (item) => item.product.id === action.payload.id
-        )!.quantity += 1;
-      } else {
-        state.items.push({
-          product: action.payload,
-          quantity: 1,
-        });
-      }
-    },
-    removeProduct: (state, action: PayloadAction<ProductType>) => {
-      state.items = state.items.filter(
-        (item) => item.product.id !== action.payload.id
-      );
-    },
-    clearCart: (state) => {
-      state.items = initialState.items;
-    },
-  },
+const reducer = combineReducers({
+  cart: cartReducer,
+  favorites: favoriteReducer,
 });
 
-export const { addProduct, removeProduct, clearCart } = cartSlice.actions;
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -54,10 +32,6 @@ export type AppDispatch = typeof store.dispatch;
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
-const store = configureStore({
-  reducer: {
-    cart: cartSlice.reducer,
-  },
-});
+export const persistor = persistStore(store);
 
 export default store;

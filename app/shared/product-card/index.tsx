@@ -1,10 +1,11 @@
 import { ProductType } from "@/app/types/product";
 import Link from "next/link";
 import React from "react";
-import AddToCartButton from "../../../../shared/add-to-cart-button";
+import AddToCartButton from "../add-to-cart-button";
 import CategoryBadge from "@/app/shared/category-badge";
 import Price from "@/app/shared/price";
 import Image from "next/image";
+import FavoriteBtn from "./components/favorite-btn";
 
 type Props = {
   product: ProductType;
@@ -38,6 +39,7 @@ export default function ProductCard({ product }: Props) {
         </div>
         <p className="text-[14px] text-gray-600">{product.description}</p>
       </Link>
+      <FavoriteBtn product={product} />
       <AddToCartButton product={product} />
     </div>
   );
