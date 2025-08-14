@@ -10,6 +10,7 @@ export default function MenuItems() {
   const items = [
     { title: "Home", url: "/" },
     { title: "Products", url: "/products" },
+    { title: "Categories", url: "/products/categories" },
     { title: "Favorites", url: "/favorites" },
   ];
 

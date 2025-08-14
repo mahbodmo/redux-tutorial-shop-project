@@ -1,4 +1,5 @@
 export type CategoryType = {
-  title: string;
-  value: string;
+  name: string;
+  slug: string;
+  url?: string;
 };

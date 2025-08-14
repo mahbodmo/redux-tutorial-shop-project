@@ -16,20 +16,18 @@ export default function ProductCard({ product }: Props) {
     <div className="relative">
       <Link
         href={`/products/${product.id}`}
-        className="bg-gray-200 shadow-l rounded-2xl p-4 flex flex-col gap-y-4 min-h-[300px]"
+        className="bg-gray-200 shadow-l rounded-2xl p-4 flex flex-col gap-y-4 min-h-[400px]"
       >
-        <div className="flex justify-between items-start">
-          <div className="flex items-center gap-x-2">
-            <Image
-              src={product.thumbnail}
-              alt={product.title}
-              width={50}
-              height={50}
-            />
-            <h4 className="text-[16px] font-bold">{product.title}</h4>
-          </div>
-          <CategoryBadge category={product.category} />
+        <div className="flex items-center gap-x-2">
+          <Image
+            src={product.thumbnail}
+            alt={product.title}
+            width={50}
+            height={50}
+          />
+          <h4 className="text-[16px] font-bold">{product.title}</h4>
         </div>
+        <CategoryBadge category={product.category} />
         <div className="flex items-center justify-between">
           <Price price={product.price} />
           <p>

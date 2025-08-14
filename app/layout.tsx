@@ -34,7 +34,7 @@ export default function RootLayout({
         <StoreProvider>
           <Toaster />
           <MainHeader />
-          <div className="min-h-[100vh] py-10 container mx-auto pt-25">
+          <div className="min-h-[100vh] p-4 container mx-auto pt-22">
             {children}
           </div>
           <Footer />

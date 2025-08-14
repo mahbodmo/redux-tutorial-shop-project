@@ -6,7 +6,7 @@ type Props = {
 
 export default function CategoryBadge({ category }: Props) {
   return (
-    <div className="bg-red-200 w-fit h-fit p-2 rounded-full text-red-900">
+    <div className="bg-red-200 w-fit h-fit p-2 rounded-full text-red-900 text-center truncate text-nowrap max-w-[150px]">
       {category}
     </div>
   );

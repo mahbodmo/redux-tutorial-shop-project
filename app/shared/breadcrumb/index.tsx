@@ -33,6 +33,8 @@ export default function Breadcrumb({ items }: Props) {
   ));
 
   return (
-    <div className="mb-6 flex items-center text-[15px]">{breadcrumbItem}</div>
+    <div className="flex items-center text-[15px] text-nowrap overflow-auto">
+      {breadcrumbItem}
+    </div>
   );
 }
